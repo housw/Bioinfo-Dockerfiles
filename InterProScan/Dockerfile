@@ -43,5 +43,6 @@ RUN chmod +x interproscan
 ENV PATH $IPR_DIR/interproscan-${VERSION}:$PATH
 
 # Entry
+WORKDIR /mnt
 CMD [ "/bin/bash" ]
 

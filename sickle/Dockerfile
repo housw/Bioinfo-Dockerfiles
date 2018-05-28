@@ -31,5 +31,6 @@ RUN chmod +x sickle
 RUN cp sickle /bin 
 
 # Entry
+WORKDIR /mnt
 CMD [ "/bin/bash" ]
 
