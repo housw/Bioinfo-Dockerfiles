@@ -14,6 +14,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y bu
 RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y zlib1g-dev
 RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y wget
 RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y liburi-escape-xs-perl
+RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y littler
 RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y cpanminus
 RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y ncbi-blast+ 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y hmmer
