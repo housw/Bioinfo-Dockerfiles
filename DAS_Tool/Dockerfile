@@ -54,6 +54,7 @@ RUN chmod +x current/DAS_Tool
 WORKDIR $DAS_TOOL_DIR/current
 RUN unzip db.zip
 RUN rm db.zip
+RUN R CMD INSTALL ./package/DASTool_1.1.0.tar.gz
 
 # install pullseq
 RUN wget https://github.com/bcthomas/pullseq/archive/master.zip
