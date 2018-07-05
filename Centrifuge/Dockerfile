@@ -14,6 +14,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y bu
 RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y zlib1g-dev
 RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y wget
 RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y git
+RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y python 
 
 # variables
 ENV CENTRIFUGE_DIR /centrifuge
