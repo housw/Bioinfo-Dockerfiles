@@ -7,9 +7,8 @@ MAINTAINER Shengwei Hou, housw2010@gmail.com
 
 # update
 RUN DEBIAN_FRONTEND=noninteractive apt-get -qq update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y default-jre
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y python2.7 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y wget
+RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y default-jre python2.7 wget
+RUN DEBIAN_FRONTEND=noninteractive apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Variables
 ENV IPR_DIR /interproscan

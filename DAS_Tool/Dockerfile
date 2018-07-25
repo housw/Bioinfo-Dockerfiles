@@ -7,32 +7,12 @@ MAINTAINER Shengwei Hou, housw2010@gmail.com
 
 # update
 RUN chown root:root /tmp && chmod 1777 /tmp
-RUN DEBIAN_FRONTEND=noninteractive apt-get -qq update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y gcc
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y make 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y build-essential
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y libtool
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y automake
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y autoconf
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y autopoint
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y bison
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y gettext
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y gperf
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y texinfo
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y rsync
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y coreutils
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y libpcre3
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y libpcre3-dev
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y zlib1g-dev
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y wget
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y liburi-escape-xs-perl
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y littler
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y ruby
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y cpanminus
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y ncbi-blast+ 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y hmmer
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y git
-RUN DEBIAN_FRONTEND=noninteractive apt-get clean
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get -qq update && \
+    apt-get install -y gcc make build-essential libtool automake autoconf autopoint bison && \
+    gettext gperf texinfo rsync coreutils libpcre3 libpcre3-dev zlib1g-dev wget liburi-escape-xs-perl && \
+    littler ruby cpanminus ncbi-blast+ hmmer git && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # variables
 ENV DAS_TOOL_DIR /DAS_Tool

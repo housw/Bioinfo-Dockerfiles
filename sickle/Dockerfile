@@ -6,12 +6,10 @@ FROM ubuntu:16.04
 MAINTAINER Shengwei Hou, housw2010@gmail.com
 
 # update
-RUN DEBIAN_FRONTEND=noninteractive apt-get -qq update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y gcc
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y make 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y build-essential
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y zlib1g-dev
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y wget
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get -qq update && \
+    apt-get install -y gcc make build-essential zlib1g-dev wget && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*    
 
 # Variables
 ENV SICKLE_DIR /sickle

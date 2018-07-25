@@ -7,18 +7,10 @@ MAINTAINER Shengwei Hou, housw2010@gmail.com
 
 # update
 RUN chown root:root /tmp && chmod 1777 /tmp
-RUN DEBIAN_FRONTEND=noninteractive apt-get -qq update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y gcc
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y make 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y build-essential
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y zlib1g-dev
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y wget
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y liburi-escape-xs-perl
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y littler
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y cpanminus
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y ncbi-blast+ 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y hmmer
-RUN DEBIAN_FRONTEND=noninteractive apt-get clean
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get -qq update && \
+    apt-get install -y gcc make build-essential zlib1g-dev wget liburi-escape-xs-perl littler cpanminus ncbi-blast+ hmmer && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # perl lib
 RUN cpanm URI::Escape

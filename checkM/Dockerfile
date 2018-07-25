@@ -3,9 +3,10 @@ MAINTAINER Shengwei Hou, housw2010@gmail.com
 
 # update
 RUN chown root:root /tmp && chmod 1777 /tmp
-RUN DEBIAN_FRONTEND=noninteractive apt-get -qq update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y gcc make build-essential libtool ncbi-blast+ zlib1g-dev wget git vim python python-dev
-RUN DEBIAN_FRONTEND=noninteractive apt-get clean
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get -qq update && \
+    apt-get install -y gcc make build-essential libtool ncbi-blast+ zlib1g-dev wget git vim python python-dev && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # install required tools
 RUN conda install --yes -c bioconda hmmer prodigal pplacer mummer 
