@@ -9,5 +9,5 @@ cp /home/shengwei/software/src/RepeatMasker/nseg.tar.gz .
 cp /home/shengwei/software/src/Funannotate/funannotate-1.0.0.tar.gz .
 
 # build 
-docker build -t funannotate -f Dockerfile .
+docker build -t shengwei/funannotate -f Dockerfile .
 
