@@ -8,15 +8,15 @@ MAINTAINER Shengwei Hou, housw2010@gmail.com
 # update
 RUN chown root:root /tmp && chmod 1777 /tmp
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get -qq update && \
-    apt-get install -y gcc make build-essential libtool automake autoconf autopoint bison && \
-    gettext gperf texinfo rsync coreutils libpcre3 libpcre3-dev zlib1g-dev wget liburi-escape-xs-perl && \
+RUN apt-get -qq update
+RUN apt-get install -y gcc make build-essential libtool automake autoconf autopoint bison \
+    gettext gperf texinfo rsync coreutils libpcre3 libpcre3-dev zlib1g-dev wget liburi-escape-xs-perl \
     littler ruby cpanminus ncbi-blast+ hmmer git && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # variables
 ENV DAS_TOOL_DIR /DAS_Tool
-ENV VERSION 1.1.0
+ENV VERSION 1.1.1
 RUN mkdir $DAS_TOOL_DIR
 WORKDIR $DAS_TOOL_DIR
 
@@ -34,7 +34,7 @@ RUN chmod +x current/DAS_Tool
 WORKDIR $DAS_TOOL_DIR/current
 RUN unzip db.zip
 RUN rm db.zip
-RUN R CMD INSTALL ./package/DASTool_1.1.0.tar.gz
+RUN R CMD INSTALL ./package/DASTool_${VERSION}.tar.gz
 
 # install pullseq
 RUN wget https://github.com/bcthomas/pullseq/archive/master.zip
