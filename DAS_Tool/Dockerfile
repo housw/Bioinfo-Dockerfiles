@@ -32,8 +32,7 @@ RUN rm ${VERSION}.tar.gz
 RUN ln -s DAS_Tool-${VERSION} current
 RUN chmod +x current/DAS_Tool
 WORKDIR $DAS_TOOL_DIR/current
-RUN unzip db.zip
-RUN rm db.zip
+RUN mkdir db && mv db.zip db && unzip db/db.zip -d db && rm db/db.zip
 RUN R CMD INSTALL ./package/DASTool_${VERSION}.tar.gz
 
 # install pullseq
