@@ -3,6 +3,7 @@
 using Pkg
 using FastaIO
 using ArgParse
+using Logging
 
 # using FastaIO 
 #try
@@ -104,20 +105,19 @@ function main()
     end
     output_file = string(prefix, ".fa")
 
-
     # In case of file exists
     if isfile(output_file)
         if ! args["force"]
-            error("$output_file exists, please rename it and re-run again.")
-            exit()
+           @error "$output_file exists, please rename it and re-run again."
+           exit()
         else
-            warn("$output_file exists, will be overwritten.")
+            @warn "$output_file exists, will be overwritten."
         end   
     end 
 
     # filter fasta by length_cutoff
     filter_fasta_by_length(args["input_fasta_file"], length_cutoff, output_file, args["reverse"])
-    
+
 end
 
 
