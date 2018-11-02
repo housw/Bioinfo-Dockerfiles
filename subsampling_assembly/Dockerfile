@@ -35,6 +35,15 @@ ENV PATH /opt/conda/bin:/opt/454/bin:$PATH
 # permisson
 RUN chmod -R 777 /opt/*
 
+# reinstall 64-bit mummer
+RUN apt-get update && apt install --yes build-essential
+WORKDIR /opt/conda/opt/mummer-3.23
+RUN make clean && make CPPFLAGS="-O3 -DSIXTYFOURBITS"
+
+# patch mummerplot
+# https://github.com/bioconda/bioconda-recipes/issues/1254
+RUN perl -i -pe 's/defined \(%/\(%/' /opt/conda/bin/mummerplot
+
 # Entry
 WORKDIR /mnt
 CMD [ "/bin/bash" ]
