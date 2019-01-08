@@ -7,38 +7,25 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # install required tools
 RUN conda install --yes python=3.5 && \
-    conda install --yes -c bioconda seqtk spades amos cd-hit && \
+    conda install --yes -c bioconda seqtk seqkit spades amos cd-hit && \
+    conda clean -ya && \
     ln -s /opt/conda/bin/show-coords /usr/local/bin/show-coords && \
     ln -s /opt/conda/bin/blat /usr/local/bin/blat
 
-# install julia 
-#RUN conda install --yes -c conda-forge julia
-RUN wget https://julialang-s3.julialang.org/bin/linux/x64/1.0/julia-1.0.1-linux-x86_64.tar.gz && \
-    tar zxfv julia-1.0.1-linux-x86_64.tar.gz && \
-    mv julia-1.0.1/bin/* /usr/bin/ && \
-    mv julia-1.0.1/include/julia/ /usr/include/ && \
-    mv julia-1.0.1/lib/* /usr/lib/ && \
-    mv julia-1.0.1/share/julia /usr/share/ && \
-    rm -rf julia-1.0.1 julia-1.0.1-linux-x86_64.tar.gz
-ENV JULIA_DEPOT_PATH /opt/julia_lib
-COPY libz.so /usr/lib
-RUN julia -e 'using Pkg; Pkg.add("ArgParse"); using ArgParse' && \
-    julia -e 'using Pkg; Pkg.add("FastaIO"); using FastaIO'
-
-# files
-COPY filter_fasta_by_length.jl /usr/bin/
+# copy newbler executables
 COPY opt /opt/
 
 # env
-ENV PATH /opt/conda/bin:/opt/454/bin:$PATH
+ENV PATH=/opt/conda/bin:/opt/454/bin:$PATH
 
 # permisson
 RUN chmod -R 777 /opt/*
 
 # reinstall 64-bit mummer
-RUN apt-get update && apt install --yes build-essential
-WORKDIR /opt/conda/opt/mummer-3.23
-RUN make clean && make CPPFLAGS="-O3 -DSIXTYFOURBITS"
+RUN apt-get update && apt install --yes build-essential && \
+    cd /opt/conda/opt/mummer-3.23 && \
+    make clean && make CPPFLAGS="-O3 -DSIXTYFOURBITS" && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # patch mummerplot
 # https://github.com/bioconda/bioconda-recipes/issues/1254
