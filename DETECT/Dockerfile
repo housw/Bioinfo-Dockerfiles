@@ -6,14 +6,9 @@ RUN apt-get -qq update && \
     apt-get install --no-install-recommends -y gzip && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# add conda channels
-RUN conda config --add channels r && \
-    conda config --add channels defaults && \
-    conda config --add channels conda-forge && \
-    conda config --add channels bioconda
-
-# install required tools and libraries
-RUN conda install -c bioconda -y emboss blast && \
+# add conda channels and install required tools and libraries
+RUN conda config --add channels bioconda && \
+    conda install -c bioconda -y emboss blast && \
     conda clean -ya 
 
 # install python packages
@@ -28,11 +23,13 @@ RUN wget http://compsysbio.org/projects/DETECTv2/DETECTv2.tar.gz && \
     rm DETECTv2.tar.gz
 ENV PATH $PATH:${DETECT_DIR}/DETECTv2  
 
+RUN chmod -R 777 $DETECT_DIR
+
 #test detect v2
 #WORKDIR ${DETECT_DIR}/DETECTv2
 #RUN detect.py sample.fasta --output_file sample.out --top_predictions_file sample.top --num_threads 8 --fbeta_file sample.f1.out --beta 1
 
 # Entry
-WORKDIR /mnt
+WORKDIR $DETECT_DIR/DETECTv2
 CMD [ "/bin/bash" ]
 
