@@ -20,10 +20,9 @@ RUN mkdir -p $DETECT_DIR
 WORKDIR $DETECT_DIR
 RUN wget http://compsysbio.org/projects/DETECTv2/DETECTv2.tar.gz && \
     tar zxfv DETECTv2.tar.gz && \
-    rm DETECTv2.tar.gz
+    rm DETECTv2.tar.gz && chmod -R 777 $DETECT_DIR
 ENV PATH $PATH:${DETECT_DIR}/DETECTv2  
 
-RUN chmod -R 777 $DETECT_DIR
 
 #test detect v2
 #WORKDIR ${DETECT_DIR}/DETECTv2
