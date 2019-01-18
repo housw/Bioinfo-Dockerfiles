@@ -1,1 +1,1 @@
-docker build -t 'shengwei/checkm:latest' .
+docker build -t 'shengwei/checkm:1.0.13' .
