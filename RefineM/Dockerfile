@@ -1,4 +1,4 @@
-FROM shengwei/checkm:1.0.13
+FROM shengwei/checkm:latest
 MAINTAINER Shengwei Hou, housw2010@gmail.com
 
 # install dependences 

@@ -11,17 +11,17 @@ RUN conda install --yes -c bioconda pplacer && \
     conda clean -ya
 
 # install python packages
-RUN pip install numpy scipy matplotlib pysam dendropy
+RUN pip install numpy scipy matplotlib pysam dendropy checkm-genome
 
 # install checkM
-ENV checkM_DIR /checkM
-RUN mkdir -p $checkM_DIR
-WORKDIR $checkM_DIR
-RUN apt-get install -y --no-install-recommends git && \
-    git clone https://github.com/Ecogenomics/CheckM.git && \
-    cd CheckM && python setup.py install && \
-    apt-get remove -y --auto-remove git && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+#ENV checkM_DIR /checkM
+#RUN mkdir -p $checkM_DIR
+#WORKDIR $checkM_DIR
+#RUN apt-get install -y --no-install-recommends git && \
+#    git clone https://github.com/Ecogenomics/CheckM.git && \
+#    cd CheckM && python setup.py install && \
+#    apt-get remove -y --auto-remove git && \
+#    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # configure checkM database
 ENV checkM_db /db/CheckM
