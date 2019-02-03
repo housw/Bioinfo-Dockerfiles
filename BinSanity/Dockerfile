@@ -15,4 +15,3 @@ ENV PATH $PATH:/opt/conda/bin
 # Entry
 WORKDIR /mnt
 CMD [ "/bin/bash" ]
-
