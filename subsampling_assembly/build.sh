@@ -1,1 +1,1 @@
-docker build -t 'shengwei/subsampling_assembly:latest' .
+docker build -t 'shengwei/subsampling_assembly:1.0.1' .
