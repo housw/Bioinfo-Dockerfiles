@@ -9,7 +9,8 @@ OUTPUT_DIR=${INPUT_BINs}_dRep
 docker run -t -d --rm \
            -v /etc/group:/etc/group:ro -v /etc/passwd:/etc/passwd:ro \
            -u $(id -u $USER):$(id -g $USER) \
-           -v $PWD:/mnt:rw \
+           -v $HOME/tmp:/tmp:rw \
+	   -v $PWD:/mnt:rw \
            --name ${CONTAINER} shengwei/drep:latest
 
 # 1) run compare 
