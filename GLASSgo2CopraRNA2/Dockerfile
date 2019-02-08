@@ -18,6 +18,9 @@ ADD scripts /GLASSgo/
 RUN chmod -R 777 /GLASSgo
 ENV PATH $PATH:/GLASSgo/
 
+# update taxa.sqlite
+RUN /GLASSgo/createJSON-1_0.py -u true
+
 
 WORKDIR /mnt
 CMD [ "/bin/bash" ]

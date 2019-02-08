@@ -1,6 +1,8 @@
 FROM shengwei/ubuntu1604py37:latest
 MAINTAINER Shengwei Hou, housw2010@gmail.com
 
+ENV LANG=C.UTF-8 LC_ALL=C
+
 # install CopraRNA2
 ADD JensCopraRNA2.yml /tmp/
 
