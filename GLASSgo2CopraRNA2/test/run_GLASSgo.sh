@@ -1,12 +1,16 @@
 #!/bin/bash
 
-CONTAINER="GLASSgo2"
-sRNA_DIR="00_sRNA_folder"
-
+# ----------
 # parameters
+# ----------
+
+sRNA_DIR="00_sRNA_folder"
 nt_DIR="/mnt/data/db/blastdb/nt/"
 acc_list="acc_list/Firmicutes.acc"
+Wildcard_RefSeq="NC_007795,NC_004461,NC_013893,NC_020164,NZ_CP007601,NC_014925,NC_007350"
+Interested_RefSeq="NZ_CP018205"
 CONTAINER="glassgo2coprarna2"
+
 
 # initialize a container in background
 docker run -t -d --rm \
@@ -53,10 +57,6 @@ COMMENT
 
 GLASSgo2CopraRNA="02_GLASSgo2CopraRNA"
 mkdir -p $GLASSgo2CopraRNA
-
-# parameters 
-Wildcard_RefSeq="NC_007795,NC_004461,NC_013893,NC_020164,NZ_CP007601,NC_014925,NC_007350"
-Interested_RefSeq="NZ_CP018205"
 
 :<<"COMMENT"
 for f in `ls $GLASSgo_OUT_FOLDER`; do
