@@ -1,0 +1,749 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <script src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"> </script>
+    <script src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
+
+    <title>Tree Example</title>
+
+    <style>
+
+        html,body{
+            height:100%;
+            margin:0;
+            overflow:hidden;
+        }
+
+        svg{
+            width:100%;
+            height:100%;
+        }
+
+        input[type="file"]{
+            position:fixed;
+            top:1em;
+            left:1em;
+        }
+
+        .node {
+            cursor: pointer;
+        }
+
+        .node circle {
+          fill: #fff;
+          stroke: steelblue;
+          stroke-width: 3px;
+        }
+
+        .node text {
+          font: 12px sans-serif;
+        }
+
+        .link {
+          fill: none;
+          stroke: #ccc;
+          stroke-width: 2px;
+        }
+
+    </style>
+
+  </head>
+
+
+<body>
+
+  <!--<div>
+      <button id='saveButton'>Export my D3 visualization to PNG</button>
+  </div> -->
+
+  <!-- Dateiupload -->
+  <!-- <input id="get-tree-data" type='file' accept='application/json' /> -->
+
+  <div id="treeviz"
+      style="width:100%; height:100%;border:solid;border-width:1px;">
+  </div>
+
+  <!-- load the d3.js library -->
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+
+  <script>
+
+      var treeData =
+[
+  {
+    "name": "1:root{553}",
+    "parent": "null",
+    "value": "29.630099561088212",
+    "type": "lightgrey",
+    "level": "lightgrey",
+    "children": [
+      {
+        "name": "131567:cellular organisms{553}",
+        "parent": "1:root",
+        "value": "29.630099561088212",
+        "type": "lightgrey",
+        "level": "lightgrey",
+        "children": [
+          {
+            "name": "2:Bacteria{553}",
+            "parent": "131567:cellular organisms",
+            "value": "29.630099561088212",
+            "type": "lightgrey",
+            "level": "lightgrey",
+            "children": [
+              {
+                "name": "1783272:Terrabacteria group{553}",
+                "parent": "2:Bacteria",
+                "value": "29.630099561088212",
+                "type": "lightgrey",
+                "level": "lightgrey",
+                "children": [
+                  {
+                    "name": "1239:Firmicutes{553}",
+                    "parent": "1783272:Terrabacteria group",
+                    "value": "29.630099561088212",
+                    "type": "lightgrey",
+                    "level": "lightgrey",
+                    "children": [
+                      {
+                        "name": "1737404:Tissierellia{1}",
+                        "parent": "1239:Firmicutes",
+                        "value": "1.26",
+                        "type": "lightgrey",
+                        "level": "lightgrey",
+                        "children": [
+                          {
+                            "name": "1737405:Tissierellales{1}",
+                            "parent": "1737404:Tissierellia",
+                            "value": "1.26",
+                            "type": "lightgrey",
+                            "level": "lightgrey",
+                            "children": [
+                              {
+                                "name": "1570339:Peptoniphilaceae{1}",
+                                "parent": "1737405:Tissierellales",
+                                "value": "1.26",
+                                "type": "lightgrey",
+                                "level": "lightgrey",
+                                "children": [
+                                  {
+                                    "name": "150022:Finegoldia{1}",
+                                    "parent": "1570339:Peptoniphilaceae",
+                                    "value": "1.26",
+                                    "type": "lightgrey",
+                                    "level": "lightgrey",
+                                    "children": [
+                                      {
+                                        "name": "1260:Finegoldia magna{1}",
+                                        "parent": "150022:Finegoldia",
+                                        "value": "1.26",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey",
+                                        "children": [
+                                          {
+                                            "name": "334413:Finegoldia magna ATCC 29328{1}",
+                                            "parent": "1260:Finegoldia magna",
+                                            "value": "1.26",
+                                            "type": "lightgrey",
+                                            "level": "lightgrey"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "91061:Bacilli{552}",
+                        "parent": "1239:Firmicutes",
+                        "value": "29.60329711366624",
+                        "type": "lightgrey",
+                        "level": "lightgrey",
+                        "children": [
+                          {
+                            "name": "1385:Bacillales{538}",
+                            "parent": "91061:Bacilli",
+                            "value": "29.22548203195287",
+                            "type": "lightgrey",
+                            "level": "lightgrey",
+                            "children": [
+                              {
+                                "name": "90964:Staphylococcaceae{538}",
+                                "parent": "1385:Bacillales",
+                                "value": "29.22548203195287",
+                                "type": "lightgrey",
+                                "level": "lightgrey",
+                                "children": [
+                                  {
+                                    "name": "1279:Staphylococcus{538}",
+                                    "parent": "90964:Staphylococcaceae",
+                                    "value": "29.22548203195287",
+                                    "type": "lightgrey",
+                                    "level": "lightgrey",
+                                    "children": [
+                                      {
+                                        "name": "1280:Staphylococcus aureus{450}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "26.728636328851497",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey",
+                                        "children": [
+                                          {
+                                            "name": "1229492:Staphylococcus aureus 08BA02176{2}",
+                                            "parent": "1280:Staphylococcus aureus",
+                                            "value": "1.7819090885900999",
+                                            "type": "lightgrey",
+                                            "level": "lightgrey"
+                                          },
+                                          {
+                                            "name": "1305598:Staphylococcus aureus M1{2}",
+                                            "parent": "1280:Staphylococcus aureus",
+                                            "value": "1.7819090885900999",
+                                            "type": "lightgrey",
+                                            "level": "lightgrey"
+                                          },
+                                          {
+                                            "name": "1323661:Staphylococcus aureus CA-347{2}",
+                                            "parent": "1280:Staphylococcus aureus",
+                                            "value": "1.7819090885900999",
+                                            "type": "lightgrey",
+                                            "level": "lightgrey"
+                                          },
+                                          {
+                                            "name": "1458279:Staphylococcus aureus USA300-ISMMS1{2}",
+                                            "parent": "1280:Staphylococcus aureus",
+                                            "value": "1.7819090885900999",
+                                            "type": "lightgrey",
+                                            "level": "lightgrey"
+                                          },
+                                          {
+                                            "name": "273036:Staphylococcus aureus RF122{2}",
+                                            "parent": "1280:Staphylococcus aureus",
+                                            "value": "1.7819090885900999",
+                                            "type": "lightgrey",
+                                            "level": "lightgrey"
+                                          },
+                                          {
+                                            "name": "46170:Staphylococcus aureus subsp. aureus{156}",
+                                            "parent": "1280:Staphylococcus aureus",
+                                            "value": "15.737394955963964",
+                                            "type": "lightgrey",
+                                            "level": "lightgrey"
+                                          },
+                                          {
+                                            "name": "703339:Staphylococcus aureus 04-02981{2}",
+                                            "parent": "1280:Staphylococcus aureus",
+                                            "value": "1.7819090885900999",
+                                            "type": "lightgrey",
+                                            "level": "lightgrey"
+                                          },
+                                          {
+                                            "name": "948561:Staphylococcus aureus O11{2}",
+                                            "parent": "1280:Staphylococcus aureus",
+                                            "value": "1.7819090885900999",
+                                            "type": "lightgrey",
+                                            "level": "lightgrey"
+                                          },
+                                          {
+                                            "name": "948563:Staphylococcus aureus O46{2}",
+                                            "parent": "1280:Staphylococcus aureus",
+                                            "value": "1.7819090885900999",
+                                            "type": "lightgrey",
+                                            "level": "lightgrey"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "name": "1281:Staphylococcus carnosus{2}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "1.7819090885900999",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "1282:Staphylococcus epidermidis{12}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "4.3647680350735705",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "1283:Staphylococcus haemolyticus{5}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "2.8174456516497353",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "1284:Staphylococcus hyicus{1}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "1.26",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "1286:Staphylococcus simulans{1}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "1.26",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "1288:Staphylococcus xylosus{4}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "2.52",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "1290:Staphylococcus hominis{3}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "2.1823840175367852",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey",
+                                        "children": [
+                                          {
+                                            "name": "145391:Staphylococcus hominis subsp. hominis{1}",
+                                            "parent": "1290:Staphylococcus hominis",
+                                            "value": "1.26",
+                                            "type": "lightgrey",
+                                            "level": "lightgrey"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "name": "1292:Staphylococcus warneri{2}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "1.7819090885900999",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey",
+                                        "children": [
+                                          {
+                                            "name": "1194526:Staphylococcus warneri SG1{2}",
+                                            "parent": "1292:Staphylococcus warneri",
+                                            "value": "1.7819090885900999",
+                                            "type": "lightgrey",
+                                            "level": "lightgrey"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "name": "1295:Staphylococcus schleiferi{5}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "2.8174456516497353",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "155085:Staphylococcus lutrae{1}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "1.26",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "1715860:Staphylococcus sp. AntiMn-1{1}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "1.26",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "214473:Staphylococcus nepalensis{2}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "1.7819090885900999",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "246432:Staphylococcus equorum{3}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "2.1823840175367852",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "28035:Staphylococcus lugdunensis{13}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "4.542994607084626",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "283734:Staphylococcus pseudintermedius{5}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "2.8174456516497353",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey",
+                                        "children": [
+                                          {
+                                            "name": "937773:Staphylococcus pseudintermedius HKU10-03{1}",
+                                            "parent": "283734:Staphylococcus pseudintermedius",
+                                            "value": "1.26",
+                                            "type": "lightgrey",
+                                            "level": "lightgrey"
+                                          },
+                                          {
+                                            "name": "984892:Staphylococcus pseudintermedius ED99{1}",
+                                            "parent": "283734:Staphylococcus pseudintermedius",
+                                            "value": "1.26",
+                                            "type": "lightgrey",
+                                            "level": "lightgrey"
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "name": "29382:Staphylococcus cohnii{1}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "1.26",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "29385:Staphylococcus saprophyticus{2}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "1.7819090885900999",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey",
+                                        "children": [
+                                          {
+                                            "name": "147452:Staphylococcus saprophyticus subsp. saprophyticus{2}",
+                                            "parent": "29385:Staphylococcus saprophyticus",
+                                            "value": "1.7819090885900999",
+                                            "type": "lightgrey",
+                                            "level": "lightgrey",
+                                            "children": [
+                                              {
+                                                "name": "342451:Staphylococcus saprophyticus subsp. saprophyticus ATCC 15305{2}",
+                                                "parent": "147452:Staphylococcus saprophyticus subsp. saprophyticus",
+                                                "value": "1.7819090885900999",
+                                                "type": "lightgrey",
+                                                "level": "lightgrey"
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "name": "29388:Staphylococcus capitis{4}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "2.52",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "308354:Staphylococcus simiae{2}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "1.7819090885900999",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "45972:Staphylococcus pasteuri{4}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "2.52",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "61015:Staphylococcus succinus{2}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "1.7819090885900999",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "643214:Staphylococcus stepanovicii{1}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "1.26",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "70255:Staphylococcus condimenti{2}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "1.7819090885900999",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "70258:Staphylococcus piscifermentans{1}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "1.26",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "985002:Staphylococcus argenteus{8}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "3.5638181771801998",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "985762:Staphylococcus agnetis{1}",
+                                        "parent": "1279:Staphylococcus",
+                                        "value": "1.26",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "name": "186826:Lactobacillales{14}",
+                            "parent": "91061:Bacilli",
+                            "value": "4.714488307335166",
+                            "type": "lightgrey",
+                            "level": "lightgrey",
+                            "children": [
+                              {
+                                "name": "33958:Lactobacillaceae{14}",
+                                "parent": "186826:Lactobacillales",
+                                "value": "4.714488307335166",
+                                "type": "lightgrey",
+                                "level": "lightgrey",
+                                "children": [
+                                  {
+                                    "name": "1578:Lactobacillus{14}",
+                                    "parent": "33958:Lactobacillaceae",
+                                    "value": "4.714488307335166",
+                                    "type": "lightgrey",
+                                    "level": "lightgrey",
+                                    "children": [
+                                      {
+                                        "name": "1613:Lactobacillus fermentum{13}",
+                                        "parent": "1578:Lactobacillus",
+                                        "value": "4.542994607084626",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      },
+                                      {
+                                        "name": "1632:Lactobacillus oris{1}",
+                                        "parent": "1578:Lactobacillus",
+                                        "value": "1.26",
+                                        "type": "lightgrey",
+                                        "level": "lightgrey"
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+];
+        var margin = {top: 20, right: 120, bottom: 20, left: 120},
+            width = 650 - margin.right - margin.left,
+            height = 500 - margin.top - margin.bottom;
+
+
+        var i = 0,
+            duration = 750,
+            rectW = 60,
+            rectH = 30;
+            //root;
+
+        var tree = d3.layout.tree()
+            .separation(function separation(a,b) {
+                return a.parent == b.parent ? 1 : 0.5;
+            })
+            .nodeSize([50, 0]);
+
+
+        var diagonal = d3.svg.diagonal()
+            .projection(function(d) {
+                return [d.y, d.x];
+            });
+
+
+        var zoom = d3.behavior.zoom()
+            .scaleExtent([0.1, 10])
+            .on("zoom", zoomed);
+
+        var drag = d3.behavior.drag()
+            .origin(function(d) { return d; })
+            .on("dragstart", dragstarted)
+            .on("drag", dragged)
+            .on("dragend", dragended);
+
+
+        var svg = d3.select("#treeviz").append("svg")
+            .attr("width", width + margin.right + margin.left)
+            .attr("height", height + margin.top + margin.bottom)
+            .call(zoom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        root = treeData[0];
+        root.x0 = height;
+        root.y0 = 0;
+        update(root);
+        d3.select(self.frameElement).style("height", "500px");
+
+        function update(source) {
+
+          // Compute the new tree layout.
+          var nodes = tree.nodes(root).reverse(),
+              links = tree.links(nodes);
+
+          // Normalize for fixed-depth.
+          nodes.forEach(function(d) { d.y = d.depth * 320; });
+
+          // Update the nodes…
+          var node = svg.selectAll("g.node")
+              .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+          // Enter any new nodes at the parent's previous position.
+          var nodeEnter = node.enter().append("g")
+              .attr("class", "node")
+              .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+              .on("click", click);
+
+          nodeEnter.append("circle")
+           .attr("r", function(d) { return d.value; })
+           .style("stroke", function(d) { return d.type; })
+           .style("fill", function(d) { return d.level; });
+
+          nodeEnter.append("text")
+              .attr("x", function(d) { return d.children || d._children ? -5 : -5; })
+              .attr("dy", "0.35em")
+              //.attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+              .text(function(d) { return d.name; })
+              .style("fill-opacity", 1e-6);
+
+          // Transition nodes to their new position.
+          var nodeUpdate = node.transition()
+              .duration(duration)
+              .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+
+          nodeUpdate.select("circle")
+            .attr("r", function(d) { return d.value; })
+            .style("fill", function(d) { return d.level; });
+
+          nodeUpdate.select("text")
+              .style("fill-opacity", 1);
+
+          // Transition exiting nodes to the parent's new position.
+          var nodeExit = node.exit().transition()
+              .duration(duration)
+              .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+              .remove();
+
+          nodeExit.select("circle")
+              .attr("r", 1e-6);
+
+          nodeExit.select("text")
+              .style("fill-opacity", 1e-6);
+
+          // Update the links
+          var link = svg.selectAll("path.link")
+              .data(links, function(d) { return d.target.id; });
+
+          // Enter any new links at the parent's previous position.
+          link.enter().insert("path", "g")
+              .attr("class", "link")
+              .style("stroke", function(d) { return d.target.level; })
+              .attr("d", function(d) {
+                var o = {x: source.x0, y: source.y0};
+                return diagonal({source: o, target: o});
+              });
+
+          // Transition links to their new position.
+          link.transition()
+              .duration(duration)
+              .attr("d", diagonal);
+
+          // Transition exiting nodes to the parent's new position.
+          link.exit().transition()
+              .duration(duration)
+              .attr("d", function(d) {
+                var o = {x: source.x, y: source.y};
+                return diagonal({source: o, target: o});
+              })
+              .remove();
+
+          // Stash the old positions for transition.
+          nodes.forEach(function(d) {
+            d.x0 = d.x;
+            d.y0 = d.y;
+          });
+        }
+
+        // Toggle children on click.
+        function click(d) {
+          if (d.children) {
+            d._children = d.children;
+            d.children = null;
+          } else {
+            d.children = d._children;
+            d._children = null;
+          }
+          update(d);
+        }
+
+
+        function zoomed() {
+            svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+        }
+
+        function dragstarted(d) {
+            d3.event.sourceEvent.stopPropagation();
+            d3.select(this).classed("dragging", true);
+        }
+
+        function dragged(d) {
+            d3.select(this).attr("x", d.x = d3.event.x).attr("y", d.y = d3.event.y);
+        }
+
+        function dragended(d) {
+            d3.select(this).classed("dragging", false);
+        }
+
+    if(window.File&&window.FileReader&&window.FileList){
+        function handleFileSelect(event){
+            var file=event.target.files[0];
+            var reader=new FileReader();
+            reader.onload=function(){
+                run(JSON.parse(reader.result));}
+            reader.onerror=function(){
+                alert("Too bad - error on loading file: "+file.name);}
+            reader.readAsText(file);}
+        document.getElementById('get-tree-data').
+            addEventListener('change',handleFileSelect,false);}
+    else{alert('Dude - your browser is too old! Do something!');}
+
+    // Set-up the export button
+    d3.select('#saveButton').on('click', function(){
+        var svgcanvas = document.getElementsByTagName("svg");
+        var xml = createXML(svgcanvas);
+
+        var height = parseInt(svgcanvas[0].height);
+        var width = parseInt(svgcanvas[0].width);
+
+    });
+
+    </script>
+  </body>
+</html>
