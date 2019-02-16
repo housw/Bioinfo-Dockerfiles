@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 MAINTAINER Shengwei Hou, housw2010@gmail.com
 
 # update
@@ -14,14 +14,15 @@ RUN apt-get -qq update && \
 RUN cpanm LWP::Simple
 
 # krakenuniq
-WORKDIR /tmp
+WORKDIR /
 RUN apt-get -qq update && \
     apt-get install -y --no-install-recommends git wget ca-certificates && \
     git clone https://github.com/fbreitwieser/krakenuniq && \
-    cd krakenuniq && ./install_krakenuniq.sh -j /usr/bin/ && \
-    rm -rf /tmp/krakenuniq && \
+    cd krakenuniq && ./install_krakenuniq.sh -j . && \
+    chmod -R 777 /krakenuniq && \
     apt-get remove -y --auto-remove git wget ca-certificates && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
+ENV PATH=$PATH:/krakenuniq
 
 # Entry
 WORKDIR /mnt
