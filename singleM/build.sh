@@ -1,1 +1,1 @@
-docker build -t 'shengwei/singlem:0.11.0' .
+docker build -t 'shengwei/singlem:0.12.0' .
