@@ -37,7 +37,11 @@ RUN pip install matplotlib==2.0.2
 RUN git clone --recursive https://github.com/wwood/singlem.git && \
     chmod -R 777 singlem && cd singlem && \
     python setup.py install && \
-    python setup.py clean --all
+    python setup.py clean --all && \
+    mkdir python-eggs && chmod -R 777 python-eggs && \
+    export PYTHON_EGG_CACHE=/singlem/python-eggs
+
+ENV PYTHON_EGG_CACHE=/singlem/python-eggs
 
 # run test 
 #RUN cd /singlem/test && python test_pipe.py 
