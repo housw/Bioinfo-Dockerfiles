@@ -1,4 +1,4 @@
-FROM shengwei/ubuntu1604py37
+FROM shengwei/ubuntu1604brew:latest
 MAINTAINER Shengwei Hou, housw2010@gmail.com
 
 # update
@@ -7,8 +7,8 @@ RUN apt-get update && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # install snippy
-RUN conda install -c conda-forge -c bioconda snippy && \
-    conda clean -ya
+RUN brew install brewsci/bio/snippy && \
+    brew cleanup 
 
 # Entry
 WORKDIR /mnt
