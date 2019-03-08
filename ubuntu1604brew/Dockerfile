@@ -13,9 +13,10 @@ RUN apt-get -qq update && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # install linuxbrew
-RUN git clone https://github.com/Homebrew/brew /brew && \
-    chmod -R 777 /brew  
-ENV PATH=${PATH}:/brew/bin
+RUN mkdir /home/linuxbrew/
+RUN git clone https://github.com/Homebrew/brew /home/linuxbrew/ && \
+    chmod -R 777 /home/  
+ENV PATH=${PATH}:/home/linuxbrew/bin
 RUN brew upgrade
 
 #  Entry
