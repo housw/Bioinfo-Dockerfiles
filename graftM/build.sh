@@ -1,1 +1,1 @@
-docker build -t 'shengwei/graftm:0.11.1' .
+docker build -t 'shengwei/graftm:0.12.0' .

@@ -11,8 +11,9 @@ RUN apt-get -qq update && \
 # install graftm
 RUN conda config --add channels conda-forge && \
     conda config --add channels bioconda && \
-    conda install -c bioconda diamond pplacer krona orfm graftm && \
+    conda install -c bioconda diamond pplacer krona orfm && \
     conda clean -ya
+RUN pip install graftm==0.12.0
 
 # install fxtract
 WORKDIR /
