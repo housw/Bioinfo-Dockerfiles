@@ -1,0 +1,159 @@
+							#############
+							## utilCUB ## 
+							#############
+							
+----------------------------------------------------------------
+Copyright (c) 	Alain Viari & Eduardo Rocha
+				Atelier de BioInformatique Universite Pierre et Marie Curie
+@file: utilCUB.c					   
+@desc: tabulate codon usage ENC ENCp S					   
+
+---------------------------------------------------------------- 
+
+
+------------------------------------------			
+ utilCUB Version 0.1 June 09		
+------------------------------------------			
+synopsis :							
+	Compute ENC (Effective Number of Codon) 
+	ENC' (ENC with GC content correction) 
+	and P (frequency of the optimal codons 
+	for amino-acids Phe, Ile, Tyr and Asn) 
+
+usage: utilCUB [-A freqA] [-C freqC] [-G freqG] [-c code] [-s] [-S] [-t]
+------------------------------------------			
+options:							
+
+	-h   : [H]elp - print <this> help			
+  	-A   : frequency of A
+  	-C   : frequency of C
+  	-G   : frequency of G
+  	-c code
+      0 : universal
+      1 : mito yeast
+      2 : mito vertebrate
+      3 : filamentous fungi
+      4 : mito insects & platyhelminthes
+      5 : Candida cylindracea
+      6 : Ciliata
+      7 : Euplotes
+      8 : mito echinoderms
+  	-s       : ignore first (start) codon
+  	-S       : ignore last  (stop)  codon
+  	-t       : test if there is a stop and if so ignore 
+------------------------------------------			
+file formats															
+seqfile:  DNA fasta format sequences length multiple of 3 
+------------------------------------------
+
+							#################
+							## util_tab_aa ## 
+							#################
+							
+----------------------------------------------------------------
+Copyright (c) 	Alain Viari & Eduardo Rocha
+				Atelier de BioInformatique Universite Pierre et Marie Curie
+@file: util_tab_aa.c						   
+@desc: tabulate amino acid usage					   
+
+---------------------------------------------------------------- 
+
+------------------------------------------			
+ util_tab_aa Version 2001					
+------------------------------------------			
+synopsis :
+tabulate amino-acid usage
+
+usage: util_tab_aa [-1] [-i alpha] [-x]
+------------------------------------------
+   -1       : ignore first residue
+   -i alpha : ignore symbols in alpha
+   -r       : compute relative frequencies
+   -t       : print last total line
+   -x       : ignore unknown symbol
+------------------------------------------
+file formats							
+								
+ seqfile       :  fasta format				
+------------------------------------------
+
+
+							###############
+							## getentryF ## 
+							###############
+
+----------------------------------------------------------------
+Copyright (c) 	Alain Viari & Eduardo Rocha
+				Atelier de BioInformatique Universite Pierre et Marie Curie
+@file: getentryF_main.c					   
+@desc: retrieves sequences by list of identifiers					   
+
+---------------------------------------------------------------- 
+
+
+------------------------------------------			
+ getentryF Version 0.1 Sept 09					
+------------------------------------------			
+synopsis :							
+  gets entries in a database from a file with ids 
+								
+usage: getentry [options] db_file					
+------------------------------------------			
+options:							
+-h           : [H]elp - print <this> help			
+-c string    : case insensitive	
+-f string    : file with ids (one per line)	
+------------------------------------------			
+file formats							
+db_file:        fasta format					
+ if n > MAX_SEQ it outputs an error 
+--------------------------------				
+				
+
+							###############
+							## translate ## 
+							###############
+
+----------------------------------------------------------------
+Copyright (c) 	Alain Viari & Eduardo Rocha
+				Atelier de BioInformatique Universite Pierre et Marie Curie
+@file: translate.c					   
+@desc: translate a fasta nucleic sequence					   
+
+---------------------------------------------------------------- 
+
+------------------------------------------			
+ translate Version 1.3 Sep 06			
+------------------------------------------			
+synopsis :							
+  gets gene sequences and translates to protein 
+								
+ usage: translate [-c (0-8)] [-s] [-S] seq.file				
+------------------------------------------			
+options:							
+ -h          : [H]elp - print <this> help			
+ -c code     :  
+             : 0 - universal 
+             : 1 - mito yeast 
+             : 2 - mito vertebrate 
+             : 3 - filamentous fungi & Mycoplasma 
+             : 4 - mito insects & platyhelminthes 
+             : 5 - Candida cylindracea 
+             : 6 - Ciliata 
+             : 7 - Euplotes 
+             : 8 - mito echinoderms 
+ -p          : remove Met as Map does 
+ -f          : reject if there are inner stops (frameshifts) 
+ -m          : force Met as start codon if [AGT]TG 
+             : note: incompatible with -s & -M 
+ -M          : really force start to be Met 
+             : note: incompatible with -s & -m
+ -s          : ignore first (start) codon 
+             : note: incompatible with -m & -M
+ -S          : ignore last  (stop)  codon 
+------------------------------------------			
+file formats							
+								
+ seqfile       :  fasta format				
+--------------------------------
+
