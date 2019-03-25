@@ -6,6 +6,7 @@ suppressPackageStartupMessages({
     require("ape")
     require("ggplot2")
     require("ggtree")
+    require("seqinr")
 })
 
 # parse arguments
@@ -27,19 +28,25 @@ output_dir <- args$output_dir
 output_file <- paste(args$output_prefix, ".pdf", sep="")
 dir.create(output_dir, showWarnings = FALSE)
 
+# get alignment length 
+alignment <- seqinr::read.fasta(input_aln)
+aln_length <- length(alignment[[1]])
+nr_seqs <- length(alignment)
+
 # msaplot using ggtree
 tree <- read.tree(input_tree)
 #p = ggtree(tree, layout = 'circular')
-p <- msaplot(p=ggtree(tree), 
+p <- msaplot(p=ggtree(tree, ladderize = TRUE), 
              fasta=input_aln, 
              width=2, 
-             offset = .1, 
+             offset = .0001 * aln_length, 
              bg_line=TRUE, 
-             height=0.5,
-             color = c("grey90", "blue", "red", "yellow", "green"))
-p + geom_tippoint(size=0.5) + geom_tiplab(size = 3, align = TRUE, linesize=.5) #+ ggtitle("test_sRNA1")
+             height=0.4,
+             color = c("white", "royalblue2", "salmon", "goldenrod2", "green3"))
+             # color order (gap, 'A', 'C', 'G', 'T')
+p + geom_tippoint(size=0.5) + geom_tiplab(size = 3, align = TRUE, linesize=.5, hjust=-0.1, vjust=-(1+1/nr_seqs)) #+ ggtitle("test_sRNA1")
 
 # save plot
 ggsave(filename=output_file, plot = last_plot(), path=output_dir, 
-       scale = 1, width = 50, height = 50, units = "cm",
+       scale = 1, width = 297, height = 210, units = "mm",
        dpi = 300, limitsize = FALSE)
