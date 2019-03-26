@@ -7,6 +7,7 @@ RUN conda install --yes -c bioconda r-argparse && \
 RUN Rscript -e "install.packages('BiocManager', repos = 'http://cran.us.r-project.org')"
 RUN Rscript -e "BiocManager::install('ggtree', version = '3.8')" 
 RUN Rscript -e "BiocManager::install('Biostrings')"
+RUN Rscript -e "BiocManager::install('seqinr')"
 
 # add scripts
 RUN mkdir /scripts && chmod -R 777 /scripts
