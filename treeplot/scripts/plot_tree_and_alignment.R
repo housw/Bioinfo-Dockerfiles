@@ -36,6 +36,7 @@ nr_seqs <- length(alignment)
 # msaplot using ggtree
 tree <- read.tree(input_tree)
 #p = ggtree(tree, layout = 'circular')
+# nucl color order (gap, 'A', 'C', 'G', 'T')
 p <- msaplot(p=ggtree(tree, ladderize = TRUE), 
              fasta=input_aln, 
              width=2, 
@@ -43,10 +44,13 @@ p <- msaplot(p=ggtree(tree, ladderize = TRUE),
              bg_line=TRUE, 
              height=0.4,
              color = c("white", "royalblue2", "salmon", "goldenrod2", "green3"))
-             # color order (gap, 'A', 'C', 'G', 'T')
 p + geom_tippoint(size=0.5) + geom_tiplab(size = 3, align = TRUE, linesize=.5, hjust=-0.1, vjust=-(1+1/nr_seqs)) #+ ggtitle("test_sRNA1")
 
 # save plot
 ggsave(filename=output_file, plot = last_plot(), path=output_dir, 
        scale = 1, width = 297, height = 210, units = "mm",
        dpi = 300, limitsize = FALSE)
+
+# remove Rplots.pdf opened by ggplot2
+# see https://stackoverflow.com/questions/17348359/how-to-stop-r-from-creating-empty-rplots-pdf-file-when-using-ggsave-and-rscript
+unlink("Rplots.pdf")
