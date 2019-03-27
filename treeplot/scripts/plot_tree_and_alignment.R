@@ -13,6 +13,7 @@ suppressPackageStartupMessages({
 parser <- ArgumentParser(description='plot sRNA tree and alignment')
 parser$add_argument('nwk_tree', type="character", help='input tree in newick format')
 parser$add_argument('fasta_alignment', type="character", help='sequence alignment in fasta format')
+parser$add_argument('-b', '--bootstrap', type="double", default=0.1, help='show bootstrap values with this minimum threshold [default \"%(default)s\"]')
 parser$add_argument('-p', '--output_prefix', type="character", default='treeplot', help='output prefix [default \"%(default)s\"]')
 parser$add_argument('-o', '--output_dir', type="character", default="./", help='output directory [default \"%(default)s\"]')
 
@@ -24,6 +25,7 @@ if (length(args) < 2) {
 }
 input_tree <- args$nwk_tree
 input_aln <- args$fasta_alignment
+bt_threshold <- args$bootstrap
 output_dir <- args$output_dir
 output_file <- paste(args$output_prefix, ".pdf", sep="")
 dir.create(output_dir, showWarnings = FALSE)
@@ -36,8 +38,9 @@ nr_seqs <- length(alignment)
 # msaplot using ggtree
 tree <- read.tree(input_tree)
 #p = ggtree(tree, layout = 'circular')
+gt = ggtree(tree, ladderize = TRUE) + geom_text2(aes(label=label, subset = !is.na(as.numeric(label)) & as.numeric(label) > bt_threshold), size=3)
 # nucl color order (gap, 'A', 'C', 'G', 'T')
-p <- msaplot(p=ggtree(tree, ladderize = TRUE), 
+p <- msaplot(p=gt, 
              fasta=input_aln, 
              width=2, 
              offset = .0001 * aln_length, 
