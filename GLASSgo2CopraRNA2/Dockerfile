@@ -12,7 +12,7 @@ RUN apt-get -qq update && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # install python package
-RUN pip install numpy biopython ete3
+RUN pip install numpy biopython ete3 csvtotable
 
 # add scripts
 RUN mkdir /GLASSgo && chmod -R 777 /GLASSgo

@@ -14,4 +14,4 @@ BASE_DIR="$PWD"
 # build image
 cd ${BASE_DIR}
 chmod -R 777 scripts
-docker build -t 'shengwei/glassgo2coprarna2:1.5.1a' .
+docker build -t 'shengwei/glassgo2coprarna2:1.5.1b' .
