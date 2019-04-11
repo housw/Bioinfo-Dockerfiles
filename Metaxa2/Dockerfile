@@ -28,6 +28,13 @@ RUN wget http://microbiology.se/sw/Metaxa2_2.2.tar.gz && \
     tar zxf Metaxa2_2.2.tar.gz && rm Metaxa2_2.2.tar.gz && \
     mv Metaxa2_2.2 Metaxa2 && chmod -R 777 Metaxa2 
 
+# install seqtk and seqkit
+RUN wget --no-check-certificate https://github.com/lh3/seqtk/archive/v1.3.tar.gz -O seqtk.tar.gz && \
+    tar zxfv seqtk.tar.gz && cd seqtk-1.3 && make && chmod 777 seqtk && mv seqtk /usr/bin/ && \
+    cd / && rm -rf seqtk-1.3 seqtk.tar.gz
+RUN wget --no-check-certificate https://github.com/shenwei356/seqkit/releases/download/v0.10.1/seqkit_linux_amd64.tar.gz -O seqkit.tar.gz && \
+    tar zxfv seqkit.tar.gz && chmod 777 seqkit && mv seqkit /usr/bin/ && rm seqkit.tar.gz
+
 # update path
 ENV PATH=$PATH:/Metaxa2:/blast
 
