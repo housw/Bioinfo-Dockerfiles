@@ -1,2 +1,3 @@
-# docker
-Dockerfiles for docker images: https://hub.docker.com/u/shengwei/ 
+# Bioinfo-Dockerfiles
+
+A collection of dockerfiles for common bioinformatic tools.  
