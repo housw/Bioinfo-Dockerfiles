@@ -1,5 +1,5 @@
 
-## * initialize a container named dastool in background
+## initialize a container named dastool in background
 ```
 docker run -t -d --rm 
            -v /etc/group:/etc/group:ro -v /etc/passwd:/etc/passwd:ro 
@@ -8,9 +8,9 @@ docker run -t -d --rm
            --name dastool shengwei/das_tool:latest
 ```
 
-## * run das_tool 
+## run das_tool 
 
-#### ** copy sample_input and sample_output to /mnt
+#### copy sample_input and sample_output to /mnt
 
 The default working directory is set to /mnt, which is the location your local working directory mount to. 
 
@@ -18,7 +18,7 @@ The default working directory is set to /mnt, which is the location your local w
 docker exec dastool /bin/bash -c "cp -r /DAS_Tool/current/sample_* ." 
 ```
 
-#### ** run sample commands
+#### run sample commands
 ```
 # sample 1
 cmd1="DAS_Tool -i sample_data/sample.human.gut_concoct_scaffolds2bin.tsv,sample_data/sample.human.gut_maxbin2_scaffolds2bin.tsv,sample_data/sample.human.gut_metabat_scaffolds2bin.tsv,sample_data/sample.human.gut_tetraESOM_scaffolds2bin.tsv -l concoct,maxbin,metabat,tetraESOM -c sample_data/sample.human.gut_contigs.fa -o sample_output/DASToolRun1
@@ -38,7 +38,7 @@ CMD2="DAS_Tool -i sample_data/sample.human.gut_concoct_scaffolds2bin.tsv,sample_
 docker exec dastool /bin/bash -c "$cmd2"
 ```
 
-## * kill container
+## kill container
 docker container kill dastool
 
 ## Disclaimer: 
